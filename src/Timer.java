@@ -11,6 +11,7 @@ public class Timer extends Event {
 
     public Timer(int duration, Host host) {
         super();
+
         this.host = host;
         this.duration = duration;
     }

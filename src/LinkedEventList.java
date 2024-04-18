@@ -19,11 +19,6 @@ public class LinkedEventList implements FutureEventList {
         this.head = null;
     }
 
-    /**
-     * Removes and returns the Event at the front of the list.
-     *
-     * @return the Event at the front of the list, or null if the list is empty
-     */
     @Override
     public Event removeFirst() {
         if (head == null) {
@@ -37,12 +32,6 @@ public class LinkedEventList implements FutureEventList {
         return removedNode.event;
     }
 
-    /**
-     * Removes the specified Event from the list, if it exists.
-     *
-     * @param e the Event to remove from the list
-     * @return true if the Event was removed, false otherwise
-     */
     @Override
     public boolean remove(Event e) {
         Node current = head;
@@ -63,11 +52,6 @@ public class LinkedEventList implements FutureEventList {
         return false; // Event not found
     }
 
-    /**
-     * Inserts an Event into the list, maintaining the list sorted by arrival time.
-     *
-     * @param e the Event to insert into the list
-     */
     @Override
     public void insert(Event e) {
         Node newNode = new Node(e);
@@ -91,11 +75,6 @@ public class LinkedEventList implements FutureEventList {
         }
     }
 
-    /**
-     * Returns the number of Events in the list.
-     *
-     * @return the number of Events in the list
-     */
     @Override
     public int size() {
         int count = 0;
@@ -107,21 +86,11 @@ public class LinkedEventList implements FutureEventList {
         return count;
     }
 
-    /**
-     * Returns the total number of Events the list can store before having to resize it.
-     *
-     * @return the capacity of the list
-     */
     @Override
     public int capacity() {
         return size();
     }
 
-    /**
-     * Returns the current simulation time (arrival time of the last Event).
-     *
-     * @return the current simulation time
-     */
     @Override
     public int getSimulationTime() {
         if (head == null) {

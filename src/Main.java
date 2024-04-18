@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         // Set the filename to read
-        String fileName = "simulation3.txt";
+        String fileName = "simulation1.txt";
 
         // Read simulation.txt and bootstrap the simulation
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {

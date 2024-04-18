@@ -34,13 +34,6 @@ public abstract class Event {
      *
      * @return the Event's arrival time
      */
-    public int getCurrentTime() {
-        return 0;
-    }
-
-    public void setArrivalTime(int arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
     public int getId() {
         return this.id;
     }
