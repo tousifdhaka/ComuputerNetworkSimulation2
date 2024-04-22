@@ -13,6 +13,7 @@ public class LinkedEventList implements FutureEventList {
         }
     }
 
+    private int updatedTime;
     private Node head; // Head node of the linked list
 
     public LinkedEventList() {
@@ -29,6 +30,8 @@ public class LinkedEventList implements FutureEventList {
         if (head != null) {
             head.prev = null;
         }
+
+        updatedTime = removedNode.event.getArrivalTime();
         return removedNode.event;
     }
 
@@ -93,9 +96,6 @@ public class LinkedEventList implements FutureEventList {
     }
 
     public int getSimulationTime() {
-        if (head == null) {
-            return 0; // No events, simulation time is 0
-        }
-        return head.event.getArrivalTime();
+        return updatedTime;
     }
 }

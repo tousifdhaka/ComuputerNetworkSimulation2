@@ -14,6 +14,7 @@ public class Message extends Event {
     @Override
     public void setInsertionTime(int currentTime) {
         // Implementation not needed for this class
+        this.insertionTime = currentTime;
     }
 
     @Override
