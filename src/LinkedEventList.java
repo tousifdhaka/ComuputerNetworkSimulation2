@@ -22,7 +22,7 @@ public class LinkedEventList implements FutureEventList {
     @Override
     public Event removeFirst() {
         if (head == null) {
-            return null; // Empty list
+            throw new IllegalStateException("Cannot remove from an empty list");
         }
         Node removedNode = head;
         head = head.next;
@@ -54,6 +54,7 @@ public class LinkedEventList implements FutureEventList {
 
     @Override
     public void insert(Event e) {
+        e.setInsertionTime(getSimulationTime()); // Set insertion time
         Node newNode = new Node(e);
         if (head == null || head.event.getArrivalTime() >= e.getArrivalTime()) {
             newNode.next = head;
@@ -91,7 +92,6 @@ public class LinkedEventList implements FutureEventList {
         return size();
     }
 
-    @Override
     public int getSimulationTime() {
         if (head == null) {
             return 0; // No events, simulation time is 0

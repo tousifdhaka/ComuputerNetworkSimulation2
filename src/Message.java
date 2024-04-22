@@ -11,25 +11,20 @@ public class Message extends Event {
         this.message = message;
     }
 
-    // Implement abstract methods of Event class
-
     @Override
     public void setInsertionTime(int currentTime) {
-
+        // Implementation not needed for this class
     }
 
     @Override
     public void cancel() {
-
+        // Implementation not needed for this class
     }
 
     @Override
     public void handle() {
-        // No action needed for handling a message
-
+        // Implementation not needed for this class
     }
-
-    // Implement additional methods
 
     public String getMessage() {
         return this.message;
