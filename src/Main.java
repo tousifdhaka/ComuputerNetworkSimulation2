@@ -11,14 +11,12 @@ public class Main {
 
         // Read simulation.txt and bootstrap the simulation
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            // Initialize simulation components
+            Map<Integer, SimpleHost> hosts = new HashMap<>();
+            FutureEventList fel = new LinkedEventList();
+
             // Read the first line to get the first host address
             int firstHostAddress = Integer.parseInt(reader.readLine());
-
-            // Create a map to store hosts by their addresses
-            Map<Integer, SimpleHost> hosts = new HashMap<>();
-
-            // Create the future event list
-            FutureEventList fel = new LinkedEventList();
 
             // Create the first host
             SimpleHost firstHost = new SimpleHost(firstHostAddress);
@@ -31,7 +29,6 @@ public class Main {
                 String[] parts = line.split(" ");
                 int neighborAddress = Integer.parseInt(parts[0]);
                 int distance = Integer.parseInt(parts[1]);
-
                 // Add neighbor connections for the first host
                 SimpleHost neighborHost = hosts.getOrDefault(neighborAddress, new SimpleHost(neighborAddress));
                 neighborHost.setHostParameters(neighborAddress, fel); // Set host parameters
@@ -42,7 +39,7 @@ public class Main {
                 neighborHost.addNeighbor(firstHost, distance);
             }
 
-            // Read ping request information
+            // Read ping request information and schedule events
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" ");
                 int senderAddress = Integer.parseInt(parts[0]);
@@ -54,7 +51,7 @@ public class Main {
                 SimpleHost sender = hosts.get(senderAddress);
                 if (sender != null) {
                     sender.setPingParameters(receiverAddress, pingInterval, pingDuration);
-                    sender.sendPingRequest(receiverAddress);
+                    sender.sendPings(receiverAddress, pingInterval, pingDuration);
                 } else {
                     System.err.println("Host with address " + senderAddress + " not found.");
                 }
@@ -65,7 +62,6 @@ public class Main {
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
-
     }
 
     private static void runSimulation(FutureEventList fel) {
@@ -75,3 +71,4 @@ public class Main {
         }
     }
 }
+

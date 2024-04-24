@@ -24,8 +24,19 @@ public class Message extends Event {
 
     @Override
     public void handle() {
-        // Implementation not needed for this class
+        // Retrieve the destination host from the next hop
+        Host destinationHost = getNextHop();
+
+        // Check if the destination host is valid
+        if (destinationHost != null) {
+            // Deliver the message to the destination host
+            destinationHost.receive(this);
+        } else {
+            // Handle the case where the destination host is not found
+            System.err.println("Destination host not found for message: " + this);
+        }
     }
+
 
     public String getMessage() {
         return this.message;
