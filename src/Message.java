@@ -4,6 +4,7 @@ public class Message extends Event {
     private String message;
     private Host nextHop;
     private int distance;
+    private int sentTime;
 
     public Message(int srcAddress, int destAddress, String message) {
         this.srcAddress = srcAddress;
@@ -13,7 +14,6 @@ public class Message extends Event {
 
     @Override
     public void setInsertionTime(int currentTime) {
-        // Implementation not needed for this class
         this.insertionTime = currentTime;
     }
 
@@ -24,19 +24,13 @@ public class Message extends Event {
 
     @Override
     public void handle() {
-        // Retrieve the destination host from the next hop
         Host destinationHost = getNextHop();
-
-        // Check if the destination host is valid
         if (destinationHost != null) {
-            // Deliver the message to the destination host
             destinationHost.receive(this);
         } else {
-            // Handle the case where the destination host is not found
             System.err.println("Destination host not found for message: " + this);
         }
     }
-
 
     public String getMessage() {
         return this.message;
@@ -56,6 +50,14 @@ public class Message extends Event {
 
     public int getDistance() {
         return this.distance;
+    }
+
+    public int getSentTime() {
+        return this.sentTime;
+    }
+
+    public void setSentTime(int sentTime) {
+        this.sentTime = sentTime;
     }
 
     public void setNextHop(Host destination, int distance) {

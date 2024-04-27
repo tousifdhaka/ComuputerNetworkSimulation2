@@ -16,8 +16,11 @@ public class LinkedEventList implements FutureEventList {
     private int updatedTime;
     private Node head; // Head node of the linked list
 
+    private int currentTime;
+
     public LinkedEventList() {
         this.head = null;
+        this.updatedTime = 0; // Initialize updatedTime to 0
     }
 
     @Override
@@ -31,6 +34,7 @@ public class LinkedEventList implements FutureEventList {
             head.prev = null;
         }
 
+        // Update updatedTime to the arrival time of the removed event
         updatedTime = removedNode.event.getArrivalTime();
         return removedNode.event;
     }
@@ -48,6 +52,12 @@ public class LinkedEventList implements FutureEventList {
                 if (current.next != null) {
                     current.next.prev = current.prev;
                 }
+
+                // If the removed event's arrival time is less than or equal to updatedTime, update updatedTime
+                if (current.event.getArrivalTime() <= updatedTime) {
+                    updatedTime = current.event.getArrivalTime();
+                }
+
                 return true;
             }
             current = current.next;

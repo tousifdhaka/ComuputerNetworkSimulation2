@@ -68,7 +68,16 @@ public class Main {
         while (fel.size() > 0) {
             Event event = fel.removeFirst();
             event.handle();
+            // Add handling for ping requests received during simulation
+            if (event instanceof Message) {
+                Message msg = (Message) event;
+                if (msg.getMessage().equals("PING_REQUEST")) {
+                    // Print the ping request
+                    System.out.println("[" + msg.getArrivalTime() + "ts] Host " + msg.getDestAddress() + ": Ping request from host " + msg.getSrcAddress());
+                }
+            }
         }
     }
+
 }
 
