@@ -4,7 +4,6 @@ public class Message extends Event {
     private String message;
     private Host nextHop;
     private int distance;
-    private int sentTime;
 
     public Message(int srcAddress, int destAddress, String message) {
         this.srcAddress = srcAddress;
@@ -46,18 +45,6 @@ public class Message extends Event {
 
     public Host getNextHop() {
         return this.nextHop;
-    }
-
-    public int getDistance() {
-        return this.distance;
-    }
-
-    public int getSentTime() {
-        return this.sentTime;
-    }
-
-    public void setSentTime(int sentTime) {
-        this.sentTime = sentTime;
     }
 
     public void setNextHop(Host destination, int distance) {

@@ -6,6 +6,7 @@ public class SimpleHost extends Host {
     private int pingDuration;
     private int pingTimerId = -1;
     private int durationTimerId = -1;
+    private int sentTime; // Initialize sent time to -1
 
     public SimpleHost(int myAddress) {
         super();
@@ -22,6 +23,7 @@ public class SimpleHost extends Host {
         pingDestAddress = destAddr;
         pingInterval = interval;
         pingDuration = duration;
+        sentTime = getCurrentTime(); // Record current simulation time as sent time
 
         pingTimerId = newTimer(pingInterval);
         scheduleDurationTimer();
@@ -53,8 +55,7 @@ public class SimpleHost extends Host {
             case "PING_RESPONSE":
                 // Compute RTT (Round Trip Time)
                 int currentTime = getCurrentTime();
-                int sentTime = msg.getSentTime(); // Get the recorded send time
-                int rtt = currentTime - sentTime; // Calculate RTT
+                int rtt = currentTime - sentTime; // Calculate RTT using stored sent time
                 System.out.println("[" + currentTime + "ts] Host " + myAddress + ": Ping response from host " + msg.getSrcAddress() + " (RTT = " + rtt + "ts)");
                 break;
             default:
@@ -64,11 +65,18 @@ public class SimpleHost extends Host {
     }
 
     public void sendPingRequest(int destAddress) {
-        // Create and send ping request message
+        // Create ping request message
         Message pingRequest = new Message(myAddress, destAddress, "PING_REQUEST");
-        pingRequest.setSentTime(getCurrentTime()); // Record the current simulation time as send time
+
+        // Record current simulation time as send time
+        sentTime = getCurrentTime();
+        pingRequest.setInsertionTime(sentTime);
+
+        // Send ping request message to neighbor
         sendToNeighbor(pingRequest);
-        System.out.println("[" + getCurrentTime() + "ts] Host " + myAddress + ": Sent ping to host " + destAddress);
+
+        // Print log message
+        System.out.println("[" + sentTime + "ts] Host " + myAddress + ": Sent ping to host " + destAddress);
     }
 
 
