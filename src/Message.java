@@ -4,6 +4,7 @@ public class Message extends Event {
     private String message;
     private Host nextHop;
     private int distance;
+    private static final int MESSAGE_DURATION = 1; // Assuming all messages have a duration of 1 time unit
 
     public Message(int srcAddress, int destAddress, String message) {
         this.srcAddress = srcAddress;
@@ -14,6 +15,9 @@ public class Message extends Event {
     @Override
     public void setInsertionTime(int currentTime) {
         this.insertionTime = currentTime;
+
+        // Compute arrival time based on insertion time and message duration
+        this.arrivalTime = currentTime + MESSAGE_DURATION;
     }
 
     @Override

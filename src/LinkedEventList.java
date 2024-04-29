@@ -34,8 +34,10 @@ public class LinkedEventList implements FutureEventList {
 
         // Update updatedTime to the arrival time of the removed event
         updatedTime = removedNode.event.getArrivalTime();
+
         return removedNode.event;
     }
+
 
     @Override
     public boolean remove(Event e) {
@@ -52,12 +54,16 @@ public class LinkedEventList implements FutureEventList {
                 }
                 updatedTime = current.event.getArrivalTime();
 
+                // Cancel the event only if it exists in the list
+                e.cancel();
+
                 return true;
             }
             current = current.next;
         }
         return false; // Event not found
     }
+
 
     @Override
     public void insert(Event e) {
