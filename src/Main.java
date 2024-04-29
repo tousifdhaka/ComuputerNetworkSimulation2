@@ -7,7 +7,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         // Set the filename to read
-        String fileName = "simulation1.txt";
+        String fileName = "simulation4.txt";
 
         // Read simulation.txt and bootstrap the simulation
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -78,6 +78,4 @@ public class Main {
             }
         }
     }
-
 }
-

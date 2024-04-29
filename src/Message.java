@@ -17,7 +17,7 @@ public class Message extends Event {
         this.insertionTime = currentTime;
 
         // Compute arrival time based on insertion time and message duration
-        this.arrivalTime = currentTime + MESSAGE_DURATION;
+        this.arrivalTime = currentTime + distance;
     }
 
     @Override
